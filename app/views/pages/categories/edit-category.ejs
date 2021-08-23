@@ -1,0 +1,125 @@
+<title>Edit Category | Admin Template</title>
+<%- include('../../layout/header'); %>
+    <!-- content @s -->
+    <div class="nk-content" id="edit-product">
+        <div class="container-fluid">
+            <div class="nk-content-inner">
+                <div class="nk-content-body">
+                    <div class="nk-block-head">
+                        <div class="nk-block-between g-3">
+                            <div class="nk-block-head-content">
+                                <h3 class="nk-block-title page-title">Edit Category</h3>
+                            </div>
+                            <div class="nk-block-head-content">
+                                <a href="/list-service"
+                                    class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em
+                                        class="icon ni ni-arrow-left"></em><span>Back</span></a>
+                                <a href="/list-service"
+                                    class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em
+                                        class="icon ni ni-arrow-left"></em></a>
+                            </div>
+                        </div>
+                    </div><!-- .nk-block-head -->
+                    <div class="nk-block">
+                        <div class="invoice">
+                            <div class="invoice-wrap">
+                                <div class="invoice-brand text-center">
+                                    <img src="./images/logo-dark.png" srcset="./images/logo-dark2x.png 2x" alt="">
+                                </div>
+
+                                <div class="card card-bordered">
+                                    <div class="card-inner">
+                                        <form action="update-category/<%= data.id %>" method="post" class="form-validate is-alter">
+                                            <div class="row g-gs">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="name">Name Category</label>
+                                                        <div class="form-control-wrap">
+                                                            <input type="text" class="form-control" id="name"
+                                                                value="<%= data.name %>" name="name" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="slug">Path / Slug</label>
+                                                        <div class="form-control-wrap">
+                                                            <input type="text" class="form-control" id="slug" value="<%= data.slug %>"
+                                                                name="slug" >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="customMultipleFilesLabel">Image
+                                                            avatar</label>
+                                                        <div class="form-control-wrap">
+                                                            <div class="custom-file">
+                                                                <input type="file" multiple class="custom-file-input" name="image"
+                                                                    id="customMultipleFiles">
+                                                                <label class="custom-file-label"
+                                                                    for="customMultipleFiles">Choose files</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="link">Link</label>
+                                                        <div class="form-control-wrap">
+                                                            <input type="text" class="form-control" id="link" value="<%= data.link %>"
+                                                                name="link" >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6" >
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="status">Status</label>
+                                                        <div class="form-control-wrap ">
+                                                            <select class="form-control form-select"
+                                                                id="status" name="status"
+                                                                data-placeholder="Select a option" required>
+                                                                <option value="1" <%= data.status == 1 ? 'selected' : '' %>>Show</option>
+                                                                <option value="0" <%= data.status == 0 ? 'selected' : '' %>>Hidden</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6" >
+                                                    <div class="form-group" id="category">
+                                                        <label class="form-label" for="fva-topics4">Select Category</label>
+                                                        <div class="form-control-wrap ">
+                                                            <select class="form-control form-select" id="fva-topics44" name="parent_id" data-placeholder="Select a option" >
+                                                                <option value="<%= data.id %>"><%= data.name %></option>
+                                                                <% for (let parent of list_category) { %>
+                                                                    <% if (parent.parent_id == 0) { %>
+                                                                        <option value="<%= parent.id %>"><%= parent.name %></option>
+                                                                        <!-- <% if (parent.children) { %>
+                                                                            <% for (let _parent of parent.children) { %>
+                                                                                <option value="<%= _parent.id %>">- - - - <%= _parent.name %></option>
+                                                                            <% } %>
+                                                                        <% } %> -->
+                                                                    <% } %>
+                                                                <% } %>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group" style="text-align: center;">
+                                                        <button type="submit"
+                                                            class="btn btn-lg btn-primary">Update</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div><!-- .nk-block -->
+                        </div><!-- .invoice -->
+                    </div><!-- .nk-block -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../../layout/footer'); %>

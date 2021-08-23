@@ -1,0 +1,201 @@
+<title>Edit Product | Admin Template</title>
+<%- include('../../layout/header'); %>
+ <!-- content @s -->
+ <div class="nk-content" id="edit-product">
+    <div class="container-fluid">
+        <div class="nk-content-inner">
+            <div class="nk-content-body">
+                <div class="nk-block-head">
+                    <div class="nk-block-between g-3">
+                        <div class="nk-block-head-content">
+                            <h3 class="nk-block-title page-title">Edit Product</h3>
+                        </div>
+                        <div class="nk-block-head-content">
+                            <a href="/list-product" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
+                            <a href="/list-product" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
+                        </div>
+                    </div>
+                </div><!-- .nk-block-head -->
+                <div class="nk-block">
+                    <div class="invoice">
+                        <div class="invoice-wrap">
+                            <div class="invoice-brand text-center">
+                                <img src="./images/logo-dark.png" srcset="./images/logo-dark2x.png 2x" alt="">
+                            </div>
+
+                            <div class="card card-bordered">
+                                <div class="card-inner">
+                                    <form action="/update-product/<%= data[0].id %>" method="post" enctype="multipart/form-data" class="form-validate is-alter">
+                                        <div class="row g-gs">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="name">Name product</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" id="name" value="<%= data[0].name %>" name="name" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="slug">Path / Slug</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" id="slug" name="slug" value="<%= data[0].slug %>" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="keywords">Meta Keywords</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" id="keywords" name="meta_keyword" value="<%= data[0].meta_keyword %>"  >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="meta_description">Meta Description</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" id="meta_description" name="meta_description" value="<%= data[0].meta_description %>" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="customMultipleFilesLabel">Image avatar</label>
+                                                    <div class="form-control-wrap">
+                                                        <div class="custom-file">
+                                                            <input type="file" multiple class="custom-file-input" name="image" id="customMultipleFiles">
+                                                            <label class="custom-file-label" for="customMultipleFiles"><%= data[0].image %></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 d-flex">
+                                                <div class="col-md-6 pl-0">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="fva-topics">Featured</label>
+                                                        <div class="form-control-wrap ">
+                                                            <select class="form-control form-select" id="fva-topics1" name="hot" data-placeholder="Select a option" required>
+                                                                <option value="1" <%= data[0].hot == 1 ? 'selected' : '' %>>Yes</option>
+                                                                <option value="0" <%= data[0].hot == 0 ? 'selected' : '' %>>No</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 pr-0">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="fva-topics2">Status</label>
+                                                        <div class="form-control-wrap ">
+                                                            <select class="form-control form-select" id="fva-topics2" name="status" data-placeholder="Select a option" required>
+                                                                <option value="1" <%= data[0].status == 1 ? 'selected' : '' %>>Show</option>
+                                                                <option value="0" <%= data[0].status == 0 ? 'selected' : '' %>>Hidden</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" >
+                                                <div class="form-group" id="_category">
+                                                    <label class="form-label" for="fva-topics4">Select Main Category</label>
+                                                    <div class="form-control-wrap ">
+                                                        <select class="form-control form-select" id="fva-topics43" name="category_id" data-placeholder="Select a option" >
+                                                            <option value="0">No select</option>
+                                                            <% for (let data_category of all_catalogry) { %>
+                                                                <% if (data_category.parent_id == 0) { %>
+                                                                    <option value="<%= data_category.id %>"><%= data_category.name %></option>
+                                                                <% } %>
+                                                            <% } %>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" >
+                                                <div class="form-group" id="_service">
+                                                    <label class="form-label" for="fva-topics4">Select Main Service</label>
+                                                    <div class="form-control-wrap ">
+                                                        <select class="form-control form-select" id="fva-topics44" name="service_id" data-placeholder="Select a option" >
+                                                            <option value="0">No select</option>
+                                                            <% for (let data_service of all_service) { %>
+                                                                <% if (data_service.id == 11) { %>
+                                                                    <option disabled value="<%= data_service.id %>"><%= data_service.name %></option>
+                                                                    <% if (data_service.children) { %>
+                                                                        <% for (let _data_service of data_service.children) { %>
+                                                                            <option value="<%= _data_service.id %>">- - - - <%= _data_service.name %></option>
+                                                                        <% } %>
+                                                                    <% } %>
+                                                                <% } %>
+                                                            <% } %>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="fva-topics3">Select Service</label>
+                                                    <div class="form-control-wrap ">
+                                                        <select class="form-control form-select" id="fva-topics33" data-placeholder="Select a option" >
+                                                            <option value="category" <%= data[0].categories != null ? 'selected' : '' %>>Category</option>
+                                                            <option value="service" <%= data[0].services != null ? 'selected' : '' %>>Service</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="fv-message">Title</label>
+                                                    <div class="form-control-wrap">
+                                                        <textarea class="form-control form-control-sm" id="fv-message"
+                                                            name="title" placeholder="Write your message"
+                                                            ><%= data[0].title %></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label">Description</label>
+                                                    <div class="card card-bordered">
+                                                        <textarea name="description" id="description" cols="30" rows="10"><%= data[0].description %></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group" style="text-align: center;">
+                                                    <button type="submit" class="btn btn-lg btn-primary">Update</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div><!-- .nk-block -->
+                    </div><!-- .invoice -->
+                </div><!-- .nk-block -->
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../../layout/footer'); %>
+
+<script>
+    CKEDITOR.replace( 'description' );
+    // $( document ).ready(function() {
+    //     if ($('#fva-topics3').val() == 'category' ) {
+    //         $('#_category').show(); 
+    //         $('#_service').hide();
+    //     } else {
+    //         $('#_service').show();
+    //         $('#_category').hide(); 
+    //     }
+
+    //     $('#fva-topics3').on('change', function() {
+    //         console.log($('#fva-topics3').val());
+    //         if ($('#fva-topics3').val() == 'category' ) {
+    //             $('#_category').show(); 
+    //             $('#_service').hide();
+    //         } else {
+    //             $('#_service').show();
+    //             $('#_category').hide(); 
+    //         }
+    //     });
+    // });
+</script>

@@ -1,0 +1,132 @@
+<title>List Service | Admin Template</title>
+<%- include('../../layout/header'); %>
+
+<!-- content @s -->
+<div class="nk-content ">
+    <div class="container-fluid">
+        <div class="nk-content-inner">
+            <div class="nk-content-body">
+                <div class="nk-block-head nk-block-head-sm">
+                    <div class="nk-block-between g-3">
+                        <div class="nk-block-head-content">
+                            <h3 class="nk-block-title page-title">List News</h3>
+                            <div class="nk-block-des text-soft">
+                                <p>You have total <span class="text-base">1,257</span> news.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- .nk-block-head -->
+                <div class="nk-block">
+                    <div class="card card-bordered card-stretch">
+                        <div class="card-inner-group">
+                            <div class="card-inner position-relative">
+                            </div><!-- .card-inner -->
+                            <div class="card-inner p-0">
+                                <div class="nk-tb-list nk-tb-ulist">
+                                    <div class="nk-tb-item nk-tb-head">
+                                        <div class="nk-tb-col nk-tb-col-check"><span>ID</span></div>
+                                        <div class="nk-tb-col"><span>Name</span></div>
+                                        <!-- <div class="nk-tb-col tb-col-md"><span>Service</span></div> -->
+                                        <div class="nk-tb-col tb-col-mb"><span>Slug</span></div>
+                                        <div class="nk-tb-col tb-col-lg"><span>Title</span></div>
+                                        <div class="nk-tb-col tb-col-mb"><span>Featured</span></div>
+                                        <div class="nk-tb-col tb-col-md"><span>Status</span></div>
+                                        <div class="nk-tb-col nk-tb-col-tools">&nbsp;</div>
+                                    </div><!-- .nk-tb-item -->
+
+                                    <% for (let news of data) { %>
+                                    <div class="nk-tb-item">
+                                        <div class="nk-tb-col nk-tb-col-check">
+                                            <span class="tb-lead-sub">
+                                                <%= news.id %>
+                                            </span>
+                                        </div>
+
+                                        <div class="nk-tb-col tb-col-mb">
+                                            <% if (news.parent_id!==0){ %>
+                                            <span class="tb-date">
+                                                <%= news.name %>
+                                            </span>
+                                            <% } %>
+                                        </div>
+                                        <div class="nk-tb-col tb-col-mb">
+                                            <span class="tb-date">
+                                                <%= news.slug %>
+                                            </span>
+                                        </div>
+                                        <div class="nk-tb-col tb-col-lg">
+                                            <span class="tb-date">
+                                                <%= news.title.substring(0,40); %>
+                                            </span>
+                                        </div>
+                                        <div class="nk-tb-col tb-col-md">
+                                            <% if (news.hot==1){ %>
+                                            <span class="tb-status text-success">Yes</span>
+                                            <% } else {%>
+                                            <span class="tb-status text-danger">No</span>
+                                            <% } %>
+                                        </div>
+                                        <div class="nk-tb-col tb-col-md">
+                                            <% if (news.status==1){ %>
+                                            <span class="tb-status text-success">Show</span>
+                                            <% } else {%>
+                                            <span class="tb-status text-danger">Hidden</span>
+                                            <% } %>
+                                        </div>
+                                        <div class="nk-tb-col nk-tb-col-tools">
+                                            <ul class="nk-tb-actions gx-1">
+                                                <li>
+                                                    <div class="drodown">
+                                                        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger"
+                                                            data-toggle="dropdown"><em
+                                                                class="icon ni ni-more-h"></em></a>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <ul class="link-list-opt no-bdr">
+                                                                <li><a href="/news/<%= news.id %>"><em
+                                                                            class="icon ni ni-eye"></em><span>View
+                                                                            Details</span></a></li>
+                                                                <li><a href="" data-id="<%= news.id %>"
+                                                                        id="delete-news"><em
+                                                                            class="icon ni ni-trash"></em><span>Delete</span></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div><!-- .nk-tb-item -->
+                                    <% } %>
+                                </div>
+                            </div><!-- .card-inner -->
+                        </div><!-- .card-inner-group -->
+                    </div><!-- .card -->
+                </div><!-- .nk-block -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- content @e -->
+<!-- footer @s -->
+<%- include('../../layout/footer'); %>
+
+<script>
+    $(document).ready(function () {
+        $("a#delete-news").on('click', function (e) {
+            var myid = $(this).attr('data-id');
+            e.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+            }).then(result => {
+                if (result.isConfirmed) {
+                    window.location.assign("/delete-news/" + myid)
+                }
+            })
+        })
+    })
+</script>
